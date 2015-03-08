@@ -1,5 +1,7 @@
 # PHP LDAP CLASS FOR MANIPULATING ACTIVE DIRECTORY
 
+Forked from adldap/adLDAP, with some custom changes that I wanted
+
 *Current Stable Version 4.0.0 https://github.com/adldap/adLDAP/releases/tag/v4.0.4*
 
 *Next Version 5.0.0*

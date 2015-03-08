@@ -1,5 +1,5 @@
 {
-	"name": "adldap/adldap",
+	"name": "wunc/adldap",
 	"type": "library",
 	"description": "adLDAP, PHP LDAP library for manipulating Active Directory",
 	"keywords": [
@@ -7,13 +7,17 @@
 		"ldap",
 		"windows"
 	],
-	"homepage": "http://adldap.sourceforge.net",
+	"homepage": "https://github.com/wunc/adLDAP",
 	"license": "LGPL-2.1",
 	"support": {
-		"issues": "https://github.com/adldap/adLDAP/issues",
-		"source": "https://github.com/adldap/adLDAP"
+		"issues": "https://github.com/wunc/adLDAP/issues",
+		"source": "https://github.com/wunc/adLDAP"
 	},
 	"authors": [
+		{
+			"name": "Wun Chiou",
+			"role": "Developer"
+		}
 		{
 			"name": "Richard Hyland",
 			"email": "adldap@richardhyland.com",
