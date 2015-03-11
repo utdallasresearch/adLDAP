@@ -1,5 +1,5 @@
 {
-	"name": "wunc/adldap",
+	"name": "utdallasresearch/adldap",
 	"type": "library",
 	"description": "adLDAP, PHP LDAP library for manipulating Active Directory",
 	"keywords": [
@@ -7,11 +7,11 @@
 		"ldap",
 		"windows"
 	],
-	"homepage": "https://github.com/wunc/adLDAP",
+	"homepage": "https://github.com/utdallasresearch/adLDAP",
 	"license": "LGPL-2.1",
 	"support": {
-		"issues": "https://github.com/wunc/adLDAP/issues",
-		"source": "https://github.com/wunc/adLDAP"
+		"issues": "https://github.com/utdallasresearch/adLDAP/issues",
+		"source": "https://github.com/utdallasresearch/adLDAP"
 	},
 	"authors": [
 		{
