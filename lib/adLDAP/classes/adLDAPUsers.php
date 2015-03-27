@@ -610,7 +610,8 @@ class adLDAPUsers {
     * @param bool $sorted Sort the user accounts
     * @return array
     */
-    public function find($includeDescription = false, $searchField = false, $searchFilter = false, $sorted = true){
+    public function find($includeDescription = false, $searchField = false, $searchFilter = false, $sorted = true)
+    {
         if (!$this->adldap->getLdapBind()){ return false; }
           
         // Perform the search and grab all their details
@@ -620,7 +621,7 @@ class adLDAPUsers {
         if ($searchField) {
             $searchParams = "(" . $searchField . "=" . $searchFilter . ")";
         }                           
-        $filter = "(&(objectClass=user)(samaccounttype=" . adLDAP::ADLDAP_NORMAL_ACCOUNT .")({$userFilter})" . $searchParams . ")";
+        $filter = "(&({$userFilter})" . $searchParams . ")";
         $fields = array("{$userIdKey}","displayname");
         $sr = ldap_search($this->adldap->getLdapConnection(), $this->adldap->getBaseDn(), $filter, $fields);
         $entries = ldap_get_entries($this->adldap->getLdapConnection(), $sr);
@@ -643,6 +644,43 @@ class adLDAPUsers {
         return ($usersArray);
     }
     
+    /**
+     * Find users with attribute searchField = value searchFilter, and return an array
+     * with the specified fields
+     * @param  string $searchField  field to search in LDAP
+     * @param  string $searchFilter field value to match
+     * @param  array $fields        fields to return in the result
+     * @return array 
+     */
+    public function findDetailed($searchField = false, $searchFilter = false, $fields = false)
+    {
+        if (!$this->adldap->getLdapBind()){ return false; }
+          
+        // Perform the search and grab all their details
+        $searchParams = "";
+        $userFilter = $this->adldap->getSearchFilter();
+        $userIdKey = $this->adldap->getUserIdKey();
+        if ($searchField) {
+            $searchParams = "(" . $searchField . "=" . $searchFilter . ")";
+        }                           
+        $filter = "(&({$userFilter})" . $searchParams . ")";
+        if (!is_array($fields)) $fields = array("{$userIdKey}","displayname");
+        $sr = ldap_search($this->adldap->getLdapConnection(), $this->adldap->getBaseDn(), $filter, $fields);
+        $entries = ldap_get_entries($this->adldap->getLdapConnection(), $sr);
+
+        $users = [];
+        for ($i=0; $i < $entries["count"]; $i++) {
+            $user = $entries[$i];
+            $user = [];
+            foreach ($fields as $field) {
+                $user[$field] = (array_key_exists($field, $entries[$i])) ? $entries[$i][$field][0] : null;
+            }
+            array_push($users, $user);
+        }
+
+        return $users;
+    }
+
     /**
     * Move a user account to a different OU
     *
