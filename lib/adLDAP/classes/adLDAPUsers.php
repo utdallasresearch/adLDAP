@@ -648,11 +648,11 @@ class adLDAPUsers {
      * Find users with attribute searchField = value searchFilter, and return an array
      * with the specified fields
      * @param  string $searchField  field to search in LDAP
-     * @param  string $searchFilter field value to match
+     * @param  array $searchFilters field value to match
      * @param  array $fields        fields to return in the result
      * @return array 
      */
-    public function findDetailed($searchField = false, $searchFilter = false, $fields = false)
+    public function findDetailed($searchField = false, $searchFilters = false, $fields = false)
     {
         if (!$this->adldap->getLdapBind()){ return false; }
           
@@ -660,8 +660,10 @@ class adLDAPUsers {
         $searchParams = "";
         $userFilter = $this->adldap->getSearchFilter();
         $userIdKey = $this->adldap->getUserIdKey();
-        if ($searchField) {
-            $searchParams = "(" . $searchField . "=" . $searchFilter . ")";
+        if ($searchField && $searchFilters) {
+            foreach ($searchFilters as $searchFilter) {
+                $searchParams .= "(" . $searchField . "=" . $searchFilter . ")";
+            }
         }                           
         $filter = "(&({$userFilter})" . $searchParams . ")";
         if (!is_array($fields)) $fields = array("{$userIdKey}","displayname");
